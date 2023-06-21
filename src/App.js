@@ -75,7 +75,7 @@ const App = () => {
     >
       <div style={{ display: "flex", gap: "10px" }}>
         <Button
-          title="Add Moveable"
+          title={`Add Moveable ${moveableComponents.length + 1}`}
           action={addMoveable}
           bg={"linear-gradient(to bottom left,#1d8cf8,#3358f4,#1d8cf8)"}
         />
