@@ -181,6 +181,7 @@ const Component = ({
           backgroundSize: "cover",
           backgroundRepeat: "no-repeat",
           backgroundPosition: "center",
+          backgroundColor: images[numIMage] ? "" : color,
         }}
         onClick={() => setSelected(id)}
       />
