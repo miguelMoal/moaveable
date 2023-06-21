@@ -177,7 +177,6 @@ const Component = ({
           left: left,
           width: width,
           height: height,
-          background: color,
           backgroundImage: `url(${images[numIMage]?.url})`,
           backgroundSize: "cover",
           backgroundRepeat: "no-repeat",
