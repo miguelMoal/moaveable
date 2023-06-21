@@ -12,6 +12,7 @@ const App = () => {
   const [selected, setSelected] = useState(null);
   const { images } = useGetImages();
 
+  //Add new components moveable with initial values
   const addMoveable = () => {
     // Create a new moveable component and add it to the array
     const COLORS = ["red", "blue", "yellow", "green", "purple"];
@@ -30,12 +31,14 @@ const App = () => {
     ]);
   };
 
+  //removes the selected component
   const deleteMoveableSelected = () => {
     const newMoveables = moveableComponents.filter(({ id }) => id != selected);
     setMoveableComponents(newMoveables);
     setSelected(null);
   };
 
+  //updates component when dragged
   const updateMoveable = (id, newComponent, updateEnd = false) => {
     const updatedMoveables = moveableComponents.map((moveable, i) => {
       if (moveable.id === id) {
@@ -44,26 +47,6 @@ const App = () => {
       return moveable;
     });
     setMoveableComponents(updatedMoveables);
-  };
-
-  const handleResizeStart = (index, e) => {
-    console.log("e", e.direction);
-    // Check if the resize is coming from the left handle
-    const [handlePosX, handlePosY] = e.direction;
-    // 0 => center
-    // -1 => top or left
-    // 1 => bottom or right
-
-    // -1, -1
-    // -1, 0
-    // -1, 1
-    if (handlePosX === -1) {
-      // Save the initial left and width values of the moveable component
-      const initialLeft = e.left;
-      const initialWidth = e.width;
-
-      // Set up the onResize event handler to update the left value based on the change in width
-    }
   };
 
   return (
@@ -99,7 +82,6 @@ const App = () => {
             {...item}
             key={index}
             updateMoveable={updateMoveable}
-            handleResizeStart={handleResizeStart}
             setSelected={setSelected}
             isSelected={selected === item.id}
             images={images}
@@ -183,38 +165,6 @@ const Component = ({
     });
   };
 
-  // const onResizeEnd = async (e) => {
-  //   let newWidth = e.lastEvent?.width;
-  //   let newHeight = e.lastEvent?.height;
-
-  //   const positionMaxTop = top + newHeight;
-  //   const positionMaxLeft = left + newWidth;
-
-  //   if (positionMaxTop > parentBounds?.height)
-  //     newHeight = parentBounds?.height - top;
-  //   if (positionMaxLeft > parentBounds?.width)
-  //     newWidth = parentBounds?.width - left;
-
-  //   const { lastEvent } = e;
-  //   const { drag } = lastEvent;
-  //   const { beforeTranslate } = drag;
-
-  //   const absoluteTop = top + beforeTranslate[1];
-  //   const absoluteLeft = left + beforeTranslate[0];
-
-  //   updateMoveable(
-  //     id,
-  //     {
-  //       top: absoluteTop,
-  //       left: absoluteLeft,
-  //       width: newWidth,
-  //       height: newHeight,
-  //       color,
-  //     },
-  //     true
-  //   );
-  // };
-
   return (
     <>
       <div
@@ -256,7 +206,6 @@ const Component = ({
           });
         }}
         onResize={onResize}
-        // onResizeEnd={onResizeEnd}
         keepRatio={false}
         throttleResize={1}
         renderDirections={["nw", "n", "ne", "w", "e", "sw", "s", "se"]}
